@@ -52,7 +52,7 @@ export function ItemFactory(sequelize: Sequelize) {
     });
 }
 
-export function AssociateUserGoal() {
-    User.hasMany(Item, { foreignKey: 'username' });
+export function AssociateUserItem() {
+    User.hasMany(Item, { foreignKey: 'username', as: 'items' });
     Item.belongsTo(User, { foreignKey: 'username' });
 }

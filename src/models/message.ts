@@ -2,31 +2,36 @@ import { InferAttributes, InferCreationAttributes, Model, DataTypes, Sequelize }
 import { User } from "./user";
 import { Item } from "./item";
 
-export class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Comment>>{
-    declare commentId: number;
-    declare username: string;
-    declare goalId: number;
-    declare comment: string;
+export class Message extends Model<InferAttributes<Message>, InferCreationAttributes<Message>>{
+    declare messageId: number;
+    declare sender: string;
+    declare receiver: string;
+    declare itemId: number;
+    declare message: string;
     declare createdAt?: Date;
 }
 
-export function CommentFactory(sequelize: Sequelize) {
-    Comment.init({
-        commentId: {
+export function MessageFactory(sequelize: Sequelize) {
+    Message.init({
+        messageId: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
             allowNull: false
         },
-        username: {
-            type: DataTypes.STRING,
+        sender: {
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
-        goalId: {
+        receiver: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
         },
-        comment: {
+        itemId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        message: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -37,17 +42,19 @@ export function CommentFactory(sequelize: Sequelize) {
         },
     }, {
         freezeTableName: true,
-        tableName: 'comments',
+        tableName: 'messsages',
         sequelize
     });
 }
 
-export function AssociateUserComment() {
-    User.hasMany(Comment, { foreignKey: 'username' });
-    Comment.belongsTo(User, { foreignKey: 'username' });
+export function AssociateUserMessage() {
+    User.hasMany(Message, { foreignKey: 'sender', as: 'sentMessages' });
+    User.hasMany(Message, { foreignKey: 'receiver', as: 'receivedMessages' });
+    Message.belongsTo(User, { foreignKey: 'sender', as: 'senderInfo' });
+    Message.belongsTo(User, { foreignKey: 'receiver', as: 'receiverInfo' });
 }
 
-export function AssociateGoalComment() {
-    Goal.hasMany(Comment, { foreignKey: 'goalId' });
-    Comment.belongsTo(Goal, { foreignKey: 'goalId' });
+export function AssociateItemMessage() {
+    Item.hasMany(Message, { foreignKey: 'itemId', as: 'messages' });
+    Message.belongsTo(Item, { foreignKey: 'itemId' });
 }
