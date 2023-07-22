@@ -20,11 +20,11 @@ export function MessageFactory(sequelize: Sequelize) {
             allowNull: false
         },
         sender: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         receiver: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         itemId: {

@@ -32,7 +32,7 @@ export function ItemFactory(sequelize: Sequelize) {
             allowNull: false,
         },
         price: {
-            type: DataTypes.NUMBER,
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
         createdAt: {
