@@ -21,6 +21,7 @@ app.use('/messages', messageRoutes)
 app.use('/items', itemRoutes);
 app.use('/users', userRoutes);
 
+// handeling for routes that don't exist
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.status(404).end();
 });
