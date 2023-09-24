@@ -17,7 +17,7 @@ export const getItemById: RequestHandler = async (req, res, next) => {
     }
 }
 
-export const getItemByUser: RequestHandler = async (req, res, next) => {
+export const getItemsByUser: RequestHandler = async (req, res, next) => {
     let username = req.params.username;
 
     let items = await User.findAll({
