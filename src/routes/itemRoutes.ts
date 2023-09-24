@@ -22,6 +22,6 @@ router.put('/:id', updateItem);
 router.delete('/:id', deleteItem);
 
 // Get items by user
-router.get('/user/:username', getItemsByUser);
+router.get('/user/:username/items', getItemsByUser);
 
 export default router;
