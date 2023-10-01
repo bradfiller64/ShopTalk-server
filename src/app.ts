@@ -1,6 +1,10 @@
 import express, { Request, Response, NextFunction } from 'express'
 import morgan from 'morgan';
 import { db } from './models'
+import userRoutes from './routes/userRoutes'
+import itemRoutes from './routes/itemRoutes'
+import messageRoutes from './routes/messageRoutes'
+import imageRoutes from './routes/imageRoutes'
 
 const app = express();
 
@@ -17,10 +21,11 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// // routes
-// app.use('/messages', messageRoutes)
-// app.use('/items', itemRoutes);
-// app.use('/users', userRoutes);
+// routes
+app.use('/images', imageRoutes)
+app.use('/messages', messageRoutes)
+app.use('/items', itemRoutes);
+app.use('/users', userRoutes);
 
 // handeling for routes that don't exist
 app.use((req: Request, res: Response, next: NextFunction) => {
